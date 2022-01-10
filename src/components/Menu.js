@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
 import { Nav, Container } from "react-bootstrap";
 
-const Menu = () => {
+const Menu = (props, state) => {
+  const { context } = props;
+  const { userObject } = context;
+
+  let isLoggedIn = false;
+  if (userObject.user.token)
+    isLoggedIn = true
+
   return (
+
     <Container>
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <Link
           to="/"
           className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
         >
-          Template
+          Conta APP
         </Link>
         <Nav>
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -20,13 +28,33 @@ const Menu = () => {
             </li>
           </ul>
 
-          <div className="col-md-3 text-end">
-            <Link to="/">
-              <button type="button" className="btn btn-outline-primary me-2">
-                Documentation
-              </button>
-            </Link>
-          </div>
+          {!isLoggedIn &&
+            <Nav>
+              <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                  <Link to="/signup" className="nav-link px-2 link-secondary">
+                    Sign Up
+                  </Link>
+                </li>
+              </ul><div className="text-end">
+                <Link to="/login">
+                  <button type="button" className="btn btn-outline-primary me-4">
+                    Log In
+                  </button>
+                </Link>
+              </div>
+            </Nav>
+          }
+
+          {isLoggedIn &&
+            <div className="text-end">
+              <Link to="#">
+                <button type="button" onClick={userObject.logout} className="btn btn-outline-primary me-4">
+                  Log Out
+                </button>
+              </Link>
+            </div>
+          }
         </Nav>
       </header>
     </Container>
