@@ -47,6 +47,14 @@ const Menu = (props, state) => {
           }
 
           {isLoggedIn &&
+            <Nav>
+            <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li>
+                <Link to="/files" className="nav-link px-2 link-secondary">
+                  Files
+                </Link>
+              </li>
+            </ul>
             <div className="text-end">
               <Link to="#">
                 <button type="button" onClick={userObject.logout} className="btn btn-outline-primary me-4">
@@ -54,6 +62,7 @@ const Menu = (props, state) => {
                 </button>
               </Link>
             </div>
+            </Nav>
           }
         </Nav>
       </header>
