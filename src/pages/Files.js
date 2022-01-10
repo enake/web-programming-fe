@@ -10,17 +10,17 @@ import React from 'react'
 
 class FilesPage extends React.Component {
 	constructor(props) {
-        super();
+		super();
 
-        const pageTitle = 'Files'
-  		const pageDescription = 'This is the list of files'
+		const pageTitle = 'Files'
+		const pageDescription = 'This is the list of files'
 
-        this.state = {
-            pageTitle: pageTitle,
+		this.state = {
+			pageTitle: pageTitle,
 			pageDescription: pageDescription,
 			compKey: 0
-        }
-    }
+		}
+	}
 
 	componentDidMount() {
 		eventBus.on("fileUpload", (data) => {
@@ -30,34 +30,38 @@ class FilesPage extends React.Component {
 		});
 	}
 
+	componentWillUnmount() {
+		eventBus.remove("fileUpload");
+	}
+
 	render() {
 		return (
 			<div>
-			  <Meta title={this.state.pageTitle} />
-			  <Header head={this.state.pageTitle} description={this.state.pageDescription} />
-			  <Container>
-				<Row>
-				  <Col>
-					<UserContext.Consumer>
-					  {state => <FileUpload context={state} />}
-					</UserContext.Consumer>
-				  </Col>
-				</Row>
-				<Row>
-					<Col>
-						<hr/>
-					</Col>
-				</Row>
-				<Row>
-				  <Col>
-					<UserContext.Consumer>
-					  {state => <FilesTable key={this.state.compKey} context={state} />}
-					</UserContext.Consumer>
-				  </Col>
-				</Row>
-			  </Container>
+				<Meta title={this.state.pageTitle} />
+				<Header head={this.state.pageTitle} description={this.state.pageDescription} />
+				<Container>
+					<Row>
+						<Col>
+							<UserContext.Consumer>
+								{state => <FileUpload context={state} />}
+							</UserContext.Consumer>
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<hr />
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<UserContext.Consumer>
+								{state => <FilesTable key={this.state.compKey} context={state} />}
+							</UserContext.Consumer>
+						</Col>
+					</Row>
+				</Container>
 			</div>
-		  )
+		)
 	}
 }
 
