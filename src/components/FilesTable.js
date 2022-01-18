@@ -1,8 +1,9 @@
 import { Table, Alert, Spinner } from 'react-bootstrap'
-import { Navigate } from 'react-router-dom';
-import React from 'react';
+import { Navigate } from 'react-router-dom'
+import React from 'react'
 import axios from 'axios'
-import { saveAs } from "file-saver";
+import { saveAs } from "file-saver"
+import FileStatus from './FileStatus'
 
 class FilesTable extends React.Component {
 
@@ -76,8 +77,7 @@ class FilesTable extends React.Component {
 		})
 			.then(function (response) {
 				return response.blob();
-			}
-			)
+			})
 			.then(function (blob) {
 				saveAs(blob, fileName);
 			})
@@ -126,7 +126,7 @@ class FilesTable extends React.Component {
 							<td>
 								<a onClick={(e) => this.getFile(e, item.file_id, item.file_name)} href="!#">{item.file_name}</a>
 							</td>
-							<td>{item.status}</td>
+							<td><FileStatus key={item.file_id} token={this.token} fileId={item.file_id} status={item.status} /></td>
 						</tr>
 					))}
 				</tbody>
